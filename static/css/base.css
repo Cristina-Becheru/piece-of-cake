@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Mr+Bedfort&family=Qwigley&display=swap');
+
+:root {
+    /* Fonts */
+    --title: 'Mr Bedfort', cursive;
+    --main-font: 'Dancing Script', cursive;
+
+    /* Colors */
+    --background: #f8f0f1; /* Light pastel background for a cake shop */
+    --blue: #a3c2e5; /* Soft blue for a gentle look */
+    --black: #333; /* Dark gray for readability */
+    --off-white: #f6f6f6; /* Soft white for contrast */
+    --white: #fff;
+    --orange: #ffbf50; /* Warm orange for a sweet touch */
+
+    /* Utils */
+    --small-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+    --border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Reset and Basic Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--main-font);
+    min-height: 100vh;
+    
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--title);
+    color: var(--black); /* Ensure headers are readable */
+}
+
+/* Main Content Area */
+main {
+    flex: 1 0 auto;
+    background-color: var(--white);
+    padding: 20px;
+}
+
+/* Header and Navbar */
+header {
+    padding: 5px 10px; /* Reduce padding for a smaller header */
+    box-shadow: var(--small-box-shadow); /* Optional: retain box shadow for aesthetics */
+}
+
+.navbar {
+    display:flex;
+    box-shadow: var(--small-box-shadow);
+    font-size: 18px; /* Adjusted for visibility */
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px; /* Rounded corners for a softer look */
+}
+
+.nav-link {
+    color: var(--black); /* White text for better contrast */
+    text-decoration: none; /* Remove underline */
+    padding: 10px 20px; /* Padding for clickable area */
+    margin: 0 10px; /* Space between links */
+    border-radius: 5px; /* Rounded corners for buttons */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 191, 80, 0.8); /* Slightly transparent orange on hover */
+    color: var(--black); /* Darker text color on hover */
+}
+.logo {
+    max-width: 100px; /* Set maximum width for the logo */
+    height: auto;
+}
+
+.active {
+    border-bottom: 2px solid var(--blue);
+    font-weight: 500;
+}
