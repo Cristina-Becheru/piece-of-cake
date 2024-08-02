@@ -1,15 +1,16 @@
-{% load static %}  <!-- Load static file handling template tags -->
+{% load static %} 
 
-<header>
-<nav class="navbar navbar-expand-lg bg-light"> 
+{% with request.resolver_match.url_name as url_name %}  
+
+<nav class="navbar navbar-expand-lg bg-light">  
     <div class="container-fluid">  
 
         <!-- Logo -->
         <a class="navbar-brand" href="#">
-            <img src="{% static 'images/logo.webp' %}" alt="Piece-of-Cake" class="logo"> 
+            <img src="{% static 'images/logo.webp' %}" alt="Piece-of-Cake" class="logo">  <!-- Static logo image -->
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>  
+            <span class="navbar-toggler-icon"></span> 
         </button>
 
         <!-- Navigation links and dropdown menu -->
@@ -17,15 +18,15 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!-- Home link -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"  href="{% url 'blog' %}">Home</a>
+                    <a class="nav-link {% if url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'blog' %}">Home</a>
                 </li>
                 <!-- Recipes link -->
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Recipes</a>
+                    <a class="nav-link {% if url_name == 'recipes' %}active{% endif %}" href="#">Recipes</a>
                 </li>
                 <!-- New Recipes link -->
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">New Recipes</a>
+                    <a class="nav-link {% if url_name == 'add_recipe' %}active{% endif %}" href="#">New Recipes</a>
                 </li>
                 <!-- Dropdown menu for Cakes -->
                 <li class="nav-item dropdown">
@@ -40,7 +41,26 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
-                 <!-- Search form -->
+
+                <!-- User authentication links -->
+                {% if request.user.is_authenticated %}
+                    <!-- Logout link for authenticated users -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'accounts_logout' %}active{% endif %}" href="/accounts/logout/">Logout</a>
+                    </li>
+                {% else %}
+                    <!-- Register link for unauthenticated users -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'accounts_signup' %}active{% endif %}" href="/accounts/signup/">Register</a>
+                    </li>
+                    <!-- Login link for unauthenticated users -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'accounts_login' %}active{% endif %}" href="/accounts/login/">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <!-- Search form -->
             <form class="d-flex search-bar" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">  <!-- Search input field -->
                 <button type="button" class="btn btn-warning" type="submit">Search</button>  <!-- Search button -->
@@ -48,4 +68,5 @@
         </div>
     </div>
 </nav>
-            </header>
+
+{% endwith %}

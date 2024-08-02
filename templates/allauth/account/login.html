@@ -2,24 +2,36 @@
 
 {% load i18n %}
 
-{% block title %}{% trans "Sign In" %}{% endblock %}
+{% block title %}{% trans "Login" %}{% endblock %}
 
 {% block content %}
-<div class="container text-center">
-  <h1>{% trans "Sign In" %}</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card border-pink">
+        <div class="card-header bg-pink text-white text-center">
+          <h2>{% trans "Log in" %}</h2>
+        </div>
+        <div class="card-body">
+          <p class="text-center">{% blocktrans %}Don't have an account? Please <a href="{{ signup_url }}">sign up</a>.{% endblocktrans %}</p>
 
-  <p>{% blocktrans %}If you have not created an account yet, then please
-  <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+          <form method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="form-group text-center mt-4">
+              <button type="submit" class="btn btn-pink w-50">{% trans "Log In" %}</button>
+            </div>
+          </form>
 
-
-  <form class="form p-2" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-    <button class="btn btn-primary w-25 mb-2" type="submit">{% trans "Sign In" %}</button>
-    <a class="button secondaryAction d-block" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  </form>
+          <div class="text-center mt-3">
+            <a class="btn btn-link" href="{% url 'account_reset_password' %}">{% trans "Forgot your password?" %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
