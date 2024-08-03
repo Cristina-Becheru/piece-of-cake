@@ -26,7 +26,7 @@
                 </li>
                 <!-- New Recipes link -->
                 <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'add_recipe' %}active{% endif %}" href="#">New Recipes</a>
+                    <a class="nav-link {% if url_name == 'add_recipe' %}active{% endif %}" href="{% url 'add_recipe' %}">New Recipes</a>
                 </li>
                 <!-- Dropdown menu for Cakes -->
                 <li class="nav-item dropdown">
