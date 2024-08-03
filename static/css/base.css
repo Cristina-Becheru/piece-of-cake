@@ -46,29 +46,29 @@ main {
 }
 
 /* Footer */
+
 .social-widget {
-    text-align: center; /* Center align text and icons */
+    text-align: center; 
 }
 
 .social-link {
-    color: #ffffff; /* White text color */
-    text-decoration: none; /* Remove underline */
-    padding: 5px; /* Padding around links */
-    margin: 0 5px; /* Space between links */
-    transition: color 0.3s ease; /* Smooth color transition on hover */
-    display: inline-flex; /* Align icon and text */
-    align-items: center; /* Center icon and text vertically */
+    color:#000000; 
+    text-decoration: none; 
+    padding: 5px; 
+    margin: 0 5px; 
+    transition: color 0.3s ease; 
+    display: inline-flex; 
+    align-items: center; 
 }
 
 .social-link:hover {
-    color: #ffbf50; /* Change text color on hover */
+    color: #ffbf50; 
 }
 
 .social-link i {
-    font-size: 24px; /* Icon size */
-    margin-right: 5px; /* Space between icon and text */
+    font-size: 24px; 
+    margin-right: 5px; 
 }
-
 
 
 /* Header and Navbar */
