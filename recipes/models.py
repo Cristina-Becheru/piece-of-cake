@@ -19,6 +19,7 @@ FLAVOR_TYPES = [
     ("coffee", "Coffee"),
 ]
 
+
 class Recipe(models.Model):
     """
     A model to create and manage cake recipes
@@ -31,7 +32,7 @@ class Recipe(models.Model):
     description = models.CharField(max_length=500, null=False, blank=False)
     ingredients = RichTextField(max_length=10000, null=False, blank=False)
     instructions = RichTextField(max_length=10000, null=False, blank=False)
-    
+
     image = ResizedImageField(
         size=[400, None],
         quality=75,
@@ -48,12 +49,9 @@ class Recipe(models.Model):
     cook_time = models.CharField(max_length=50, null=True, blank=True)
     servings = models.PositiveIntegerField()
     posted_date = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         ordering = ["-posted_date"]
 
     def __str__(self):
         return str(self.title)
-
-
-

@@ -3,8 +3,11 @@ from djrichtextfield.widgets import RichTextWidget
 from .models import Recipe
 
 from django import forms
-from djrichtextfield.widgets import RichTextWidget  # Adjust import based on your actual setup
+from djrichtextfield.widgets import (
+    RichTextWidget,
+)  # Adjust import based on your actual setup
 from .models import Recipe
+
 
 class RecipeForm(forms.ModelForm):
     """Form to create a recipe"""
@@ -27,12 +30,12 @@ class RecipeForm(forms.ModelForm):
         ]
 
         widgets = {
-            "ingredients": RichTextWidget(),  
-            "instructions": RichTextWidget(),  
+            "ingredients": RichTextWidget(),
+            "instructions": RichTextWidget(),
             "description": forms.Textarea(attrs={"rows": 5}),
-            "prep_time": forms.TextInput(attrs={"placeholder": "e.g., 30 minutes"}),  
-            "servings": forms.NumberInput(attrs={"placeholder": "e.g., 4 servings"}),  
-            "cook_time": forms.TextInput(attrs={"placeholder": "e.g., 45 minutes"}), 
+            "prep_time": forms.TextInput(attrs={"placeholder": "e.g., 30 minutes"}),
+            "servings": forms.NumberInput(attrs={"placeholder": "e.g., 4 servings"}),
+            "cook_time": forms.TextInput(attrs={"placeholder": "e.g., 45 minutes"}),
             "calories": forms.NumberInput(attrs={"placeholder": "e.g., 250"}),
         }
 
@@ -50,5 +53,3 @@ class RecipeForm(forms.ModelForm):
             "servings": "Number of Servings",
             "cook_time": "Cooking Time",
         }
-
-    
