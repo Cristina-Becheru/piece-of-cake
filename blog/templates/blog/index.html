@@ -1,1 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- Main Section -->
+<main>
+    <!-- Introduction Section -->
+    <section class="intro-section text-center py-5">
+        <div class="container">
+            <h1 class="main-title">Delicious Cake Recipes</h1>
+            <p class="pt-4">
+                Welcome to Piece of Cake, your ultimate source for delicious and diverse cake recipes! Whether you're a 
+                baking enthusiast or just looking to add a sweet touch to your celebrations, we’ve got you covered. Explore 
+                our extensive collection of cake recipes designed for every occasion, from classic chocolate cakes to 
+                creative and decorative masterpieces. With our easy-to-follow recipes and baking tips, you'll be whipping 
+                up delightful cakes in no time. Dive in and let’s make every moment a little sweeter!
+            </p>
+            <p>Discover the finest recipes for every occasion</p>
+            <a href="{% url 'recipes' %}" class="btn btn-primary">Browse Recipes</a>
+        </div>
+    </section>
+
+    <!-- Featured Cakes Section -->
+    <section class="featured-cakes py-4">
+        <div class="container">
+            <h2 class="text-center pb-4">Popular Recipes</h2>
+            <div class="recipe-cont">
+                {% for recipe in recipes %}
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="img-container">
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}">
+                        <div class="text-overlay">
+                            <h2>{{ recipe.title }}</h2>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
