@@ -1,6 +1,6 @@
 from django import forms
 from djrichtextfield.widgets import RichTextWidget
-from .models import Recipe
+from .models import Recipe, Comment
 
 from django import forms
 from djrichtextfield.widgets import (
@@ -52,4 +52,23 @@ class RecipeForm(forms.ModelForm):
             "prep_time": "Preparation Time",
             "servings": "Number of Servings",
             "cook_time": "Cooking Time",
+        }
+class CommentForm(forms.ModelForm):
+    """Form to create a comment"""
+
+    class Meta:
+        model = Comment
+        fields = [
+            "content",
+            "rating",
+        ]
+
+        widgets = {
+            "content": RichTextWidget(),
+            "rating": forms.RadioSelect(choices=Comment._meta.get_field('rating').choices),
+        }
+
+        labels = {
+            "content": "Comment",
+            "rating": "Rating",
         }

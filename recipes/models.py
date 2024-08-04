@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from djrichtextfield.models import RichTextField
 from django_resized import ResizedImageField
@@ -55,3 +56,24 @@ class Recipe(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+class Comment(models.Model):
+    """
+    A model to create and manage comments on recipes
+    """
+    user = models.ForeignKey(
+        User, related_name="recipe_comments", on_delete=models.CASCADE
+    )
+    recipe = models.ForeignKey(
+        Recipe, related_name="comments", on_delete=models.CASCADE
+    )
+    content = models.TextField(null=False, blank=False)
+    rating = models.PositiveIntegerField(choices=[(i, f"{i} Star") for i in range(1, 6)], default=5)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.recipe.title}"

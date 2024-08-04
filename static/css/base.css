@@ -361,7 +361,40 @@ header {
     color: white;
 }
 
+    .comment-container {
+        max-width: 500px; /* Set a maximum width for the comment container */
+        margin: auto; /* Center the container */
+        padding: 10px; /* Add some padding */
+        border: 1px solid #ddd; /* Light border for the container */
+        border-radius: 5px; /* Rounded corners */
+        background-color:#FFDCE2; /* Light background color */
+        text-align: center;
+    }
 
+    .comment-content {
+        word-wrap: break-word; /* Ensure long words break to fit within the container */
+        margin-bottom: 10px;
+        font-size: 1.1em; 
+    }
+
+    .comment-rating {
+        margin-top: 10px; /* Add some space above the rating */
+        margin-bottom: 10px;
+    }
+
+    .fa-star {
+        color: #ffc107; /* Gold color for stars */
+        font-size: 1.2em; /* Slightly larger star size */
+    }
+    .comment-user,
+    .comment-date {
+        font-size: 1.1em; /* Slightly smaller font size for user and date */
+        color: #555; /* Darker gray for text */
+        margin-top: 5px; /* Space above user and date text */
+    }
+
+    
+    
 
 
 

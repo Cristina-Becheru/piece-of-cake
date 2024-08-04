@@ -43,5 +43,47 @@
                 <p>{{ recipe.instructions|safe }}</p>
             </div>
         </div>
+    <!-- Comments Section -->
+    <div class="comments-section mt-4">
+        <h2>Comments</h2>
+
+        {% if user.is_authenticated %}
+        <div class="comment-form mt-3">
+            <h3>Add a Comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
+            </form>
+        </div>
+        {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
+        {% endif %}
+
+        {% if comments %}
+        <div class="comments-list mt-3">
+            {% for comment in comments %}
+            <div class="comment-container mb-3 p-2 border rounded">
+                <p class="comment-content">{{ comment.content }}</p>
+                <div class="comment-rating">
+                    {% for i in "12345" %}
+                        {% if i|add:"0" <= comment.rating %}
+                            <span class="fa fa-star checked"></span>
+                        {% else %}
+                            <span class="fa fa-star"></span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="comment-user"><strong>By:</strong> {{ comment.user }}</p>
+                <p class="comment-date"><small>Posted on {{ comment.created_at|date:"F j, Y, g:i a" }}</small></p>
+            </div>
+            {% empty %}
+            <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No comments yet.</p>
+        {% endif %}
     </div>
+</div>
 {% endblock %}
