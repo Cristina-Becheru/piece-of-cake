@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}Edit Recipe{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border">
+                <div class="card-header text-center">
+                    <h1>{% trans "Edit Recipe" %}</h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" class="p-2">
+                        {% csrf_token %}
+                        {{ form.media }}
+                        {{ form|crispy }}
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-primary w-50">{% trans "Save Changes" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
