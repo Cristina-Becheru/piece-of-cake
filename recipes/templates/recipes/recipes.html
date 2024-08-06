@@ -44,7 +44,7 @@
             <a href="{% url 'recipe_detail' recipe.id %}" class="recipe-link" aria-label="Click to view {{ recipe.title }}">
                 <div class="recipe-card">
                     <div class="recipe-img">
-                        <img src="{{ recipe.image.url }}" class="recipe-pic small" alt="{{ recipe.image_alt }}">
+                        <img src="{{ recipe.image.url }}" class="recipe-pic" alt="{{ recipe.image_alt }}">
                     </div>
                     <div class="recipe-info">
                         <h2 class="card-title">{{ recipe.title }}</h2>

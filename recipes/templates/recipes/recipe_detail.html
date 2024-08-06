@@ -1,39 +1,41 @@
 {% extends "base.html" %}
 
-{% block title %}Recipe Detail {{recipe.title}}{% endblock %}
+{% block title %}Recipe Detail: {{ recipe.title }}{% endblock %}
 
-{% block content %} 
+{% block content %}
     <div class="container">
+        <!-- Recipe Info Section -->
         <div class="recipe-info mt-3 p-1">
             <div class="recipe-img">
                 <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}" class="recipe-pic">
             </div>
             <div class="recipe-detail">
                 <h1 class="text-center">{{ recipe.title }}</h1>
-                <p class="text-center">Posted by {{recipe.user}} on {{recipe.posted_date}}</p>
+                <p class="text-center">Posted by {{ recipe.user }} on {{ recipe.posted_date }}</p>
                 <hr>
                 <p class="text-center">{{ recipe.description }}</p>
                 <div class="row g-2">
                     <div class="col-12 col-md-6">
-                        <p><strong>Prep Time: </strong> {{ recipe.prep_time }}</p>
-                        <p><strong>Cook Time: </strong> {{ recipe.cook_time }}</p>
+                        <p><strong>Prep Time: </strong>{{ recipe.prep_time }}</p>
+                        <p><strong>Cook Time: </strong>{{ recipe.cook_time }}</p>
                     </div>
                     <div class="col-12 col-md-6">
-                        <p><strong>Calories: </strong> {{ recipe.calories }}</p>
-                        <p><strong>Servings: </strong> {{ recipe.servings }}</p>
-            
+                        <p><strong>Calories: </strong>{{ recipe.calories }}</p>
+                        <p><strong>Servings: </strong>{{ recipe.servings }}</p>
                     </div>
                 </div>
 
-                {% if request.user == recipe.user %} 
-                <div class="text-center">
+                {% if request.user == recipe.user %}
+                <div class="text-center mt-3">
                     <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary w-25">Edit</a>
-                    <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-primary w-25">Delete</a>
+                    <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger w-25">Delete</a>
                 </div>
                 {% endif %}
             </div>
         </div>
-        <div class="recipe-container">
+
+        <!-- Recipe Container Section -->
+        <div class="recipe-container mt-4">
             <div class="ingredients p-3">
                 <h2>Ingredients</h2>
                 <p>{{ recipe.ingredients|safe }}</p>
@@ -43,47 +45,48 @@
                 <p>{{ recipe.instructions|safe }}</p>
             </div>
         </div>
-    <!-- Comments Section -->
-    <div class="comments-section mt-4">
-        <h2>Comments</h2>
 
-        {% if user.is_authenticated %}
-        <div class="comment-form mt-3">
-            <h3>Add a Comment</h3>
-            <form method="post">
-                {% csrf_token %}
-                {{ comment_form.as_p }}
-                <button type="submit" class="btn btn-primary">Submit Comment</button>
-            </form>
-        </div>
-        {% else %}
-        <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
-        {% endif %}
+        <!-- Comments Section -->
+        <div class="comments-section mt-4">
+            <h2>Comments</h2>
 
-        {% if comments %}
-        <div class="comments-list mt-3">
-            {% for comment in comments %}
-            <div class="comment-container mb-3 p-2 border rounded">
-                <p class="comment-content">{{ comment.content }}</p>
-                <div class="comment-rating">
-                    {% for i in "12345" %}
-                        {% if i|add:"0" <= comment.rating %}
-                            <span class="fa fa-star checked"></span>
-                        {% else %}
-                            <span class="fa fa-star"></span>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <p class="comment-user"><strong>By:</strong> {{ comment.user }}</p>
-                <p class="comment-date"><small>Posted on {{ comment.created_at|date:"F j, Y, g:i a" }}</small></p>
+            {% if user.is_authenticated %}
+            <div class="comment-form mt-3">
+                <h3>Add a Comment</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                </form>
             </div>
-            {% empty %}
+            {% else %}
+            <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
+            {% endif %}
+
+            {% if comments %}
+            <div class="comments-list mt-3">
+                {% for comment in comments %}
+                <div class="comment-container mb-3 p-2 border rounded">
+                    <p class="comment-content">{{ comment.content }}</p>
+                    <div class="comment-rating">
+                        {% for i in "12345" %}
+                            {% if i|add:"0" <= comment.rating %}
+                                <span class="fa fa-star checked"></span>
+                            {% else %}
+                                <span class="fa fa-star"></span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p class="comment-user"><strong>By:</strong> {{ comment.user }}</p>
+                    <p class="comment-date"><small>Posted on {{ comment.created_at|date:"F j, Y, g:i a" }}</small></p>
+                </div>
+                {% empty %}
+                <p>No comments yet.</p>
+                {% endfor %}
+            </div>
+            {% else %}
             <p>No comments yet.</p>
-            {% endfor %}
+            {% endif %}
         </div>
-        {% else %}
-        <p>No comments yet.</p>
-        {% endif %}
     </div>
-</div>
 {% endblock %}
