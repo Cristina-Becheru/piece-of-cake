@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import (
 )
 from django.db.models import Q
 
-from .models import Recipe, Comment, Category
+from .models import Recipe, Comment
 from .forms import RecipeForm, CommentForm
 
 # Define cake types and flavors as constants
@@ -28,25 +28,6 @@ FLAVOR_TYPES = [
     ("coffee", "Coffee"),
 ]
 
-class RecipeCategoryListView(ListView):
-    """View recipes filtered by category"""
-
-    template_name = "recipes/recipes.html"
-    context_object_name = "recipes"
-
-    def get_queryset(self):
-        category_slug = self.kwargs.get('category_slug')
-        category = get_object_or_404(Category, slug=category_slug)
-        return Recipe.objects.filter(category=category)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        context['selected_category'] = get_object_or_404(Category, slug=self.kwargs.get('category_slug'))
-        context['cake_types'] = dict(CAKE_TYPES)
-        context['flavor_types'] = dict(FLAVOR_TYPES)
-        return context
-
 class Recipes(ListView):
     """View all recipes"""
 
@@ -56,7 +37,6 @@ class Recipes(ListView):
 
     def get_queryset(self, **kwargs):
         query = self.request.GET.get('q')
-        category_slug = self.request.GET.get('category')
         cake_type_slug = self.request.GET.get('cake_type')
         flavor_slug = self.request.GET.get('flavor')
 
@@ -69,10 +49,6 @@ class Recipes(ListView):
                 Q(instructions__icontains=query)
             )
 
-        if category_slug:
-            category = get_object_or_404(Category, slug=category_slug)
-            recipes = recipes.filter(category=category)
-
         if cake_type_slug:
             recipes = recipes.filter(cake_type=cake_type_slug)
 
@@ -83,7 +59,6 @@ class Recipes(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
         context['cake_types'] = dict(CAKE_TYPES)
         context['flavor_types'] = dict(FLAVOR_TYPES)
         return context
@@ -99,7 +74,6 @@ class RecipeDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
         context['comments'] = self.object.comments.all()
-        context['categories'] = Category.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):

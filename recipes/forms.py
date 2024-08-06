@@ -38,8 +38,6 @@ class RecipeForm(forms.ModelForm):
             "servings": forms.NumberInput(attrs={"placeholder": "e.g., 4 servings"}),
             "cook_time": forms.TextInput(attrs={"placeholder": "e.g., 45 minutes"}),
             "calories": forms.NumberInput(attrs={"placeholder": "e.g., 250"}),
-            "cake_type": forms.Select(),
-            "flavor": forms.Select(),
         }
 
         labels = {

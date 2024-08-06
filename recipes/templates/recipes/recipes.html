@@ -59,44 +59,4 @@
         {% endfor %}
     </div>
 </div>
-
-<!-- Pagination Controls -->
-{% if recipes.has_other_pages %}
-<nav aria-label="Page navigation">
-    <ul class="pagination">
-        {% if recipes.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page=1{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="First">
-                    <span aria-hidden="true">&laquo;&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ recipes.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-        {% endif %}
-
-        {% for page_num in recipes.paginator.page_range %}
-            <li class="page-item {% if recipes.number == page_num %}active{% endif %}">
-                <a class="page-link" href="?page={{ page_num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}">{{ page_num }}</a>
-            </li>
-        {% endfor %}
-
-        {% if recipes.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ recipes.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ recipes.paginator.num_pages }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="Last">
-                    <span aria-hidden="true">&raquo;&raquo;</span>
-                </a>
-            </li>
-        {% endif %}
-    </ul>
-</nav>
-{% endif %}
-
 {% endblock %}

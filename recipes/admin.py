@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe, Comment, Category
+from .models import Recipe, Comment 
 
 
 @admin.register(Recipe)
@@ -42,13 +42,6 @@ class RecipeAdmin(admin.ModelAdmin):
 
     readonly_fields = ("posted_date",)
     
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'parent')
-    search_fields = ('name',)
-    list_filter = ('parent',)
-    ordering = ('name',)
-
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
