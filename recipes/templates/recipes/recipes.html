@@ -2,10 +2,41 @@
 
 {% block title %}Recipes{% endblock %}
 
-{% block content %} 
+{% block content %}
 <h1 class="text-center p-2 d-block">
     Latest Recipes
 </h1>
+
+<div class="text-center mb-4"> <!-- Center container -->
+    <form method="get" action="{% url 'recipes' %}" class="d-inline-block"> <!-- Center form -->
+        <div class="row justify-content-center">  
+            <div class="col-md-5 mb-3">
+                <select name="cake_type" class="form-select" aria-label="Filter recipes by cake type">
+                    <option value="">All Cake Types</option>
+                    {% for key, value in cake_types.items %}
+                        <option value="{{ key }}" {% if request.GET.cake_type == key %}selected{% endif %}>
+                            {{ value }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-5 mb-3">
+                <select name="flavor" class="form-select" aria-label="Filter recipes by flavor">
+                    <option value="">All Flavors</option>
+                    {% for key, value in flavor_types.items %}
+                        <option value="{{ key }}" {% if request.GET.flavor == key %}selected{% endif %}>
+                            {{ value }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        <div class="col-md-12 text-center mt-3">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
+<!-- Recipes Grid -->
 <div class="container">
     <div class="row g-3">
         {% for recipe in recipes %}
@@ -21,9 +52,51 @@
                         <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-dark">View Recipe</a>
                     </div>
                 </div>
+            </a>
         </div>
+        {% empty %}
+        <p>No recipes found.</p>
         {% endfor %}
     </div>
 </div>
+
+<!-- Pagination Controls -->
+{% if recipes.has_other_pages %}
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% if recipes.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ recipes.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for page_num in recipes.paginator.page_range %}
+            <li class="page-item {% if recipes.number == page_num %}active{% endif %}">
+                <a class="page-link" href="?page={{ page_num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}">{{ page_num }}</a>
+            </li>
+        {% endfor %}
+
+        {% if recipes.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ recipes.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ recipes.paginator.num_pages }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.cake_type %}&cake_type={{ request.GET.cake_type }}{% endif %}{% if request.GET.flavor %}&flavor={{ request.GET.flavor }}{% endif %}" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
 
 {% endblock %}

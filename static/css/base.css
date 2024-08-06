@@ -305,11 +305,13 @@ header {
     color: #333; /* Dark color for the title */
 }
 
-
 .recipe-cont {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 3rem;
+    justify-content: center;
+    
+
 }
 
 
@@ -322,14 +324,16 @@ header {
     border-radius: 8px; 
     box-shadow: 0 4px 8px rgba(255, 105, 180, 0.5); 
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    width: 20%;
-   
+    width: calc(30% - 1rem);
+    margin-bottom: 2rem;
+    box-sizing: border-box;
 }
 .img-container img {
     width: 100%;
     height: auto;
     display: block;
     transition: transform 0.3s ease;
+    justify-content: center;
 }
 
 /* Hover Effect for Image */
@@ -393,8 +397,11 @@ header {
         margin-top: 5px; /* Space above user and date text */
     }
 
-    
-    
+
+
+
+
+
 
 
 

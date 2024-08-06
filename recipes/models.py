@@ -20,6 +20,20 @@ FLAVOR_TYPES = [
     ("coffee", "Coffee"),
 ]
 
+class Category(models.Model):
+    """Model to represent a category with subcategories"""
+    name = models.CharField(max_length=255)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='subcategories', on_delete=models.CASCADE)
+    type = models.CharField(max_length=50, choices=[('cake', 'Cake'), ('flavor', 'Flavor')], blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    
 
 class Recipe(models.Model):
     """
@@ -50,6 +64,9 @@ class Recipe(models.Model):
     cook_time = models.CharField(max_length=50, null=True, blank=True)
     servings = models.PositiveIntegerField()
     posted_date = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(
+        Category, related_name="cakes", on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     class Meta:
         ordering = ["-posted_date"]

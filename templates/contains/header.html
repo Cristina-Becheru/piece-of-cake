@@ -24,24 +24,10 @@
                 <li class="nav-item">
                     <a class="nav-link {% if url_name == 'recipes' %}active{% endif %}" href="{% url 'recipes' %}">Recipes</a>
                 </li>
-                <!-- New Recipes link -->
+                <!-- Add New Recipes link -->
                 <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'add_recipe' %}active{% endif %}" href="{% url 'add_recipe' %}">New Recipes</a>
+                    <a class="nav-link {% if url_name == 'add_recipe' %}active{% endif %}" href="{% url 'add_recipe' %}">Add Recipes</a>
                 </li>
-                <!-- Dropdown menu for Cakes -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Cakes
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- Dropdown items -->
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-
                 <!-- User authentication links -->
                 {% if request.user.is_authenticated %}
                     <!-- Logout link for authenticated users -->

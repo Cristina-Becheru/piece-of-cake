@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}Recipe Categories{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center p-4">{% trans "Recipe Categories" %}</h1>
+
+    <!-- Cake Types Section -->
+    <div class="section">
+        <h2>{% trans "Cake Types" %}</h2>
+        <div class="row">
+            {% for cake_type in cake_types %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>{{ cake_type.name }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Display recipes associated with the cake type -->
+                            <ul class="list-unstyled">
+                                {% if cake_type.recipes.all %}
+                                    {% for recipe in cake_type.recipes.all %}
+                                        <li>
+                                            <a href="{% url 'recipe_detail' recipe.id %}">
+                                                <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}" class="img-thumbnail" style="width: 100px; height: auto;">
+                                                {{ recipe.title }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>{% trans "No recipes available in this category." %}</p>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Flavor Types Section -->
+    <div class="section mt-4">
+        <h2>{% trans "Flavor Types" %}</h2>
+        <div class="row">
+            {% for flavor_type in flavor_types %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>{{ flavor_type.name }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Display recipes associated with the flavor type -->
+                            <ul class="list-unstyled">
+                                {% if flavor_type.recipes.all %}
+                                    {% for recipe in flavor_type.recipes.all %}
+                                        <li>
+                                            <a href="{% url 'recipe_detail' recipe.id %}">
+                                                <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}" class="img-thumbnail" style="width: 100px; height: auto;">
+                                                {{ recipe.title }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>{% trans "No recipes available in this category." %}</p>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
