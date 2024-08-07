@@ -58,7 +58,7 @@
                                     {% for recipe in flavor_type.recipes.all %}
                                         <li>
                                             <a href="{% url 'recipe_detail' recipe.id %}">
-                                                <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}" class="img-thumbnail" style="width: 100px; height: auto;">
+                                                <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}" class="img-thumbnail" >
                                                 {{ recipe.title }}
                                             </a>
                                         </li>

@@ -27,7 +27,7 @@
 
                 {% if request.user == recipe.user %}
                 <div class="text-center mt-3">
-                    <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary w-25">Edit</a>
+                    <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-success w-25">Edit</a>
                     <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger w-25">Delete</a>
                 </div>
                 {% endif %}
@@ -60,7 +60,7 @@
                 </form>
             </div>
             {% else %}
-            <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
+            <p><a href="{% url 'account_login' %}" class="btn btn-primary">Log in</a> to add a comment.</p>
             {% endif %}
 
             {% if comments %}
@@ -70,7 +70,7 @@
                     <p class="comment-content">{{ comment.content }}</p>
                     <div class="comment-rating">
                         {% for i in "12345" %}
-                            {% if i|add:"0" <= comment.rating %}
+                            {% if i|add:"0" >= comment.rating %}
                                 <span class="fa fa-star checked"></span>
                             {% else %}
                                 <span class="fa fa-star"></span>

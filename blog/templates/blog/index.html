@@ -13,7 +13,7 @@
             <h1 class="main-title">Delicious Cake Recipes</h1>
             <p class="pt-4">
                 Welcome to Piece of Cake, your ultimate source for delicious and diverse cake recipes! Whether you're a 
-                baking enthusiast or just looking to add a sweet touch to your celebrations, we’ve got you covered. Explore 
+                baking enthusiast or just looking to add a sweet touch to your celebrations, we've got you covered. Explore 
                 our extensive collection of cake recipes designed for every occasion, from classic chocolate cakes to 
                 creative and decorative masterpieces. With our easy-to-follow recipes and baking tips, you'll be whipping 
                 up delightful cakes in no time. Dive in and let’s make every moment a little sweeter!
@@ -30,7 +30,7 @@
             <div class="recipe-cont">
                 {% for recipe in recipes %}
                     <a href="{% url 'recipe_detail' recipe.id %}" class="img-container">
-                        <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}">
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.image_alt }}" class="img-fluid">
                         <div class="text-overlay">
                             <h2>{{ recipe.title }}</h2>
                         </div>
@@ -39,5 +39,6 @@
             </div>
         </div>
     </section>
+</main>
 
 {% endblock %}
